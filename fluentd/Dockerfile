@@ -1,2 +1,2 @@
-FROM fluent/fluentd:v0.12
+FROM fluent/fluentd:latest
 RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "1.9.5"]
