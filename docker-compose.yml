@@ -3,7 +3,7 @@ services:
   web:
     image: httpd
     ports:
-      - "80:80"
+      - "2000:80"
     links:
       - fluentd
     logging:
@@ -14,8 +14,8 @@ services:
 
   fluentd:
     build: ./fluentd
-    volumes:
-      - ./fluentd/conf:/fluentd/etc
+    # volumes:
+    #   - ./fluentd/conf:/fluentd/etc
     links:
       - "elasticsearch"
     ports:
