@@ -9,36 +9,37 @@ services:
     logging:
       driver: "fluentd"
       options:
-        fluentd-address: localhost:24224
-        tag: httpd.access
+        fluentd-address: fluent.aaa-preprod.aws-int.thomsonreuters.com:24224
+        tag: http.access
 
   fluentd:
-    build: ./fluentd
-    # volumes:
-    #   - ./fluentd/conf:/fluentd/etc
-    links:
-      - "elasticsearch"
-    ports:
-      - "24224:24224"
-      - "24224:24224/udp"
-    logging:
-        driver: "json-file"
-        options:
-            max-size: 100m
-            max-file: "5"
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
-    environment:
-      - discovery.type=single-node
-    expose:
-      - 9200
-    ports:
-      - "9200:9200"
-
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.3.2
-    links:
-      - "elasticsearch"
-    ports:
-      - "5601:5601"
+    image: fluentd
+  
+  # fluentd:
+  #   build: ./fluentd
+  #   # links:
+  #   #   - "elasticsearch"
+  #   ports:
+  #     - "24224:24224"
+  #     - "24224:24224/udp"
+  #   logging:
+  #       driver: "json-file"
+  #       options:
+  #           max-size: 100m
+  #           max-file: "5"
+  #
+  # elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2
+  #   environment:
+  #     - discovery.type=single-node
+  #   expose:
+  #     - 9200
+  #   ports:
+  #     - "9200:9200"
+  #
+  # kibana:
+  #   image: docker.elastic.co/kibana/kibana:7.3.2
+  #   links:
+  #     - "elasticsearch"
+  #   ports:
+  #     - "5601:5601"
